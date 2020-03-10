@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using AzureStorageConfig;
+using BooksCatalogueAPI.Models;
 
 namespace BooksCatalogueAPI
 {
@@ -27,8 +29,10 @@ namespace BooksCatalogueAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers();
             services.AddDbContext<MyDatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+            services.Configure<AzureStorageConfig>(Configuration.GetSection("AzureStorageConfig"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
